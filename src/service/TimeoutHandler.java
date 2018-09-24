@@ -1,22 +1,17 @@
-package messenger;
+package service;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class TimeoutHandler {
+class TimeoutHandler {
 
-    private static final int DEFAULT_TIMEOUT = 2000;
+    private static final int DEFAULT_TIMEOUT_MILLIS = 5000;
 
     private Map<Integer, Timeout> timeouts = new HashMap<>();
-    private Process process;
 
-    public TimeoutHandler(Process process) {
-        this.process = process;
-    }
-
-    public Timeout waitForResponse(Message message) {
-        Timeout timeout = new Timeout(process, DEFAULT_TIMEOUT);
+    Timeout waitForResponse(Message message) {
+        Timeout timeout = new Timeout(DEFAULT_TIMEOUT_MILLIS);
         int messageId = message.getId();
         timeouts.put(messageId, timeout);
         timeout.onTimeout(() -> {
@@ -26,14 +21,14 @@ public class TimeoutHandler {
         return timeout;
     }
 
-    public void answered(Message message) {
+    void answered(Message message) {
         int messageId = message.getId();
         Optional.ofNullable(timeouts.get(messageId))
                 .ifPresent(Timeout::complete);
         timeouts.remove(messageId);
     }
 
-    public void clearALl() {
+    void clearALl() {
         timeouts.values().forEach(Timeout::complete);
         timeouts.clear();
     }

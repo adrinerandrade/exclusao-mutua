@@ -1,4 +1,4 @@
-package messenger;
+package service;
 
 final class MessageIdProvider {
 

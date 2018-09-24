@@ -1,4 +1,4 @@
-package messenger;
+package service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,4 +27,5 @@ public class Payload {
     public String toString() {
         return String.valueOf(data);
     }
+
 }

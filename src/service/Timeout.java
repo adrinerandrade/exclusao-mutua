@@ -1,15 +1,13 @@
-package messenger;
+package service;
 
 import java.util.*;
 
 public class Timeout {
 
-    private Process process;
     private Timer timer = new Timer();
     private Queue<Runnable> onTimeout = new LinkedList<>();
 
-    Timeout(Process process, int milliseconds) {
-        this.process = process;
+    Timeout(int milliseconds) {
         timer.schedule(new TimerTask() {
 
             @Override
@@ -21,14 +19,11 @@ public class Timeout {
     }
 
     public Timeout onTimeout(Runnable runnable) {
-        onTimeout.add(() -> {
-            ProcessContext.setCurrentProcess(this.process.getId());
-            runnable.run();
-        });
+        onTimeout.add(runnable);
         return this;
     }
 
-    public void complete() {
+    void complete() {
         timer.cancel();
     }
 
