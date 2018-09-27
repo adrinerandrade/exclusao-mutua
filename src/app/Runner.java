@@ -6,7 +6,7 @@ import service.Service;
 public class Runner {
 
     public static void main(String[] args) {
-        new Service(new ApplicationService(), 3050);
+        ApplicationService applicationService = new ApplicationService(3050);
     }
 
 }

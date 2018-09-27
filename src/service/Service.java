@@ -44,11 +44,14 @@ public class Service {
 
     private void handleRequest(Message message) {
         String action = message.getHeader(MessageHeader.ACTION);
+        String sourceHost = message.getHeader(MessageHeader.SOURCE_HOST);
+        int sourcePort = message.getHeader(MessageHeader.SOURCE_PORT);
+        Address sourceAddress = new Address(sourceHost, sourcePort);
         serviceScope.getHandlers().stream()
                 .filter(handler -> RequestHandlerExtractor.getRequestHandler(handler).action().equals(action))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(String.format("Handler not found for action: %s", action)))
-                .onRequest(message.getPayload())
+                .onRequest(sourceAddress, message.getPayload())
                 .thenAccept(payload -> new Reply(message).send(this.messenger, payload));
     }
 

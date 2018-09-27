@@ -10,7 +10,6 @@ public class ElectionAlgorithmLogic implements ApplicationService {
     private static final String ACTION_HEADER = "action";
 
     private TimeoutHandler timeoutHandler = new TimeoutHandler(this);
-    private TreeSet<ServiceKey> allServices = new TreeSet<>();
 
     private final int rank;
     private final String id;

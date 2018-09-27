@@ -2,6 +2,7 @@ package handlers;
 
 import impl.ApplicationService;
 import service.ActionHandler;
+import service.Address;
 import service.Payload;
 import service.RequestHandler;
 
@@ -17,7 +18,7 @@ public class ElectionHandler implements ActionHandler {
     }
 
     @Override
-    public CompletableFuture<Payload> onRequest(Payload payload) {
+    public CompletableFuture<Payload> onRequest(Address sourceAddress, Payload payload) {
         return null;
     }
 

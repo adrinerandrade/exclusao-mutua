@@ -4,6 +4,6 @@ import java.util.concurrent.CompletableFuture;
 
 public interface ActionHandler {
 
-    CompletableFuture<Payload> onRequest(Payload payload);
+    CompletableFuture<Payload> onRequest(Address sourceAddress, Payload payload);
 
 }
