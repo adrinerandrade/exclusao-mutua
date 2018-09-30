@@ -2,7 +2,7 @@ package impl;
 
 public enum PayloadKeys {
 
-    PRIORITY,
+    PID,
     IS_COORDINATOR
 
 }

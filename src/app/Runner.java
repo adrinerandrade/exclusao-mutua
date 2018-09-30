@@ -1,7 +1,6 @@
 package app;
 
 import impl.ApplicationService;
-import service.Service;
 
 public class Runner {
 

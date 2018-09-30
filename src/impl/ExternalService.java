@@ -4,22 +4,27 @@ import service.Address;
 
 import java.util.Objects;
 
-public class ExternalService {
+public class ExternalService implements Comparable<ExternalService> {
 
     private final Address address;
-    private final int rank;
+    private final int pid;
 
-    public ExternalService(Address address, int rank) {
+    public ExternalService(Address address, int pid) {
         this.address = address;
-        this.rank = rank;
+        this.pid = pid;
     }
 
     public Address getAddress() {
         return address;
     }
 
-    public int getRank() {
-        return rank;
+    public int getPid() {
+        return pid;
+    }
+
+    @Override
+    public int compareTo(ExternalService o) {
+        return Integer.compare(pid, o.getPid());
     }
 
     @Override
@@ -34,4 +39,13 @@ public class ExternalService {
     public int hashCode() {
         return Objects.hash(address);
     }
+
+    @Override
+    public String toString() {
+        return "ExternalService{" +
+                "address=" + address +
+                ", pid=" + pid +
+                '}';
+    }
+
 }

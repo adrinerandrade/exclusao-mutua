@@ -31,8 +31,15 @@ public final class Address {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(host, port);
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "host='" + host + '\'' +
+                ", port=" + port +
+                '}';
     }
 
 }

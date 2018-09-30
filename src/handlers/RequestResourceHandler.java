@@ -8,12 +8,12 @@ import service.RequestHandler;
 
 import java.util.concurrent.CompletableFuture;
 
-@RequestHandler(action = "coordinator_action")
-public class CoordinatorActionHandler implements ActionHandler {
+@RequestHandler(action = "request_resource")
+public class RequestResourceHandler implements ActionHandler {
 
     private final ApplicationService application;
 
-    public CoordinatorActionHandler(ApplicationService application) {
+    public RequestResourceHandler(ApplicationService application) {
         this.application = application;
     }
 

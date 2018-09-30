@@ -21,11 +21,11 @@ public class GetInfoRequestHandler implements ActionHandler {
 
     @Override
     public CompletableFuture<Payload> onRequest(Address sourceAddress, Payload payload) {
-        int sourcePriority = payload.get(PayloadKeys.PRIORITY.name());
-        application.getInfoModule().getAliveAddresses().add(new ExternalService(sourceAddress, sourcePriority));
+        int sourcePid = payload.get(PayloadKeys.PID.name());
+        application.getInfoModule().newService(new ExternalService(sourceAddress, sourcePid));
 
         Payload response = new Payload();
-        response.put(PayloadKeys.PRIORITY.name(), application.getInfoModule().getPriority());
+        response.put(PayloadKeys.PID.name(), application.getInfoModule().getPid());
         response.put(PayloadKeys.IS_COORDINATOR.name(), application.getCoordinatorModule().getCoordinatorAddress());
         return CompletableFuture.completedFuture(response);
     }

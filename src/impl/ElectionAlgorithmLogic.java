@@ -5,21 +5,11 @@ import service.*;
 import java.util.*;
 import java.util.function.Consumer;
 
-public class ElectionAlgorithmLogic implements ApplicationService {
-
-    private static final String ACTION_HEADER = "action";
-
-    private TimeoutHandler timeoutHandler = new TimeoutHandler(this);
+public class ElectionAlgorithmLogic {
 
     private final int rank;
     private final String id;
     private String coordinator;
-    private boolean alive = true;
-
-    public ElectionAlgorithmLogic() {
-        this.rank = ServiceIdProvider.newId();
-        this.id = getProcessName(this.rank);
-    }
 
     @Override
     public String getId() {
@@ -141,9 +131,6 @@ public class ElectionAlgorithmLogic implements ApplicationService {
         });
     }
 
-    void handleElectionResponse(Message message) {
-    }
-
     void handleCoordinatorRequest(Message message) {
         LinkedList<Integer> pids = message.getPayload().get(CoordinatorMessage.PIDS);
         if (!pids.getFirst().equals(rank)) {
@@ -183,32 +170,4 @@ public class ElectionAlgorithmLogic implements ApplicationService {
             CurrentCoordinator.setCoordinatorId(this.coordinator);
         }
     }
-
-    private Optional<ServiceKey> getSuccessor() {
-        return Optional.ofNullable(Optional.ofNullable(allServices.higher(new ServiceKey(id, rank)))
-                .orElseGet(() -> {
-                    try {
-                        return allServices.first();
-                    }catch (NoSuchElementException e) {
-                        return null;
-                    }
-                })
-        );
-    }
-
-    private String getProcessName(int pid) {
-        return String.format("Process_%s", pid);
-    }
-
-    private void mapNewProcess(String sourceProcessId, int rank) {
-        allServices.add(new ServiceKey(sourceProcessId, rank));
-        System.out.print(String.format("\nAll mapped processes for %s: %s", id, allServices));
-    }
-
-    public void onKill() {
-        timeoutHandler.clearALl();
-        timeoutHandler = null;
-        alive = false;
-    }
-
 }

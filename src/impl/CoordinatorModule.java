@@ -22,12 +22,20 @@ public class CoordinatorModule {
         this.coordinatorAddress = coordinatorAddress;
     }
 
-    public boolean getCoordinator() {
+    public boolean isCoordinator() {
         return isCoordinator;
     }
 
-    public void setCoordinator(boolean coordinator) {
-        this.isCoordinator = coordinator;
+    public void makeCoordinator() {
+        this.coordinatorAddress = null;
+        this.isCoordinator = true;
+        System.out.println("Serviço atribuido como Coordenador.");
+    }
+
+    public void newCoordinator(Address address) {
+        this.coordinatorAddress = address;
+        this.isCoordinator = false;
+        System.out.println(String.format("Novo coordenador: %s.", address));
     }
 
 }
