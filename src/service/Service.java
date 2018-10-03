@@ -47,11 +47,13 @@ public class Service {
         String sourceHost = message.getHeader(MessageHeader.SOURCE_HOST);
         int sourcePort = message.getHeader(MessageHeader.SOURCE_PORT);
         Address sourceAddress = new Address(sourceHost, sourcePort);
-        serviceScope.getHandlers().stream()
+        Optional.ofNullable(serviceScope.getHandlers().stream()
                 .filter(handler -> RequestHandlerExtractor.getRequestHandler(handler).action().equals(action))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(String.format("Handler not found for action: %s", action)))
-                .onRequest(sourceAddress, message.getPayload())
+                .onRequest(sourceAddress, message.getPayload()))
+                .orElseGet(() -> CompletableFuture.completedFuture(new Payload()))
+                .thenApply(payload -> Optional.ofNullable(payload).orElse(new Payload()))
                 .thenAccept(payload -> new Reply(message).send(this.messenger, payload));
     }
 

@@ -3,6 +3,7 @@ package impl;
 public enum PayloadKeys {
 
     PID,
-    IS_COORDINATOR
+    IS_COORDINATOR,
+    PIDS
 
 }
