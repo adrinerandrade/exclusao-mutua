@@ -26,7 +26,7 @@ public class GetInfoRequestHandler implements ActionHandler {
 
         Payload response = new Payload();
         response.put(PayloadKeys.PID.name(), application.getInfoModule().getPid());
-        response.put(PayloadKeys.IS_COORDINATOR.name(), application.getCoordinatorModule().getCoordinatorAddress());
+        response.put(PayloadKeys.IS_COORDINATOR.name(), application.getCoordinatorModule().isCoordinator());
         return CompletableFuture.completedFuture(response);
     }
 

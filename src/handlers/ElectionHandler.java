@@ -8,6 +8,7 @@ import service.Payload;
 import service.RequestHandler;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @RequestHandler(action = "election")
@@ -26,7 +27,7 @@ public class ElectionHandler implements ActionHandler {
             pids.add(application.getInfoModule().getPid());
             continueElection(payload);
         } else {
-
+            beginCoordinatorCycle(pids);
         }
         return null;
     }
@@ -37,9 +38,12 @@ public class ElectionHandler implements ActionHandler {
                         .onTimeout(() -> continueElection(payload)));
     }
 
-    private void beginCoordinatorAction() {
+    private void beginCoordinatorCycle(List<Integer> pids) {
+        Payload payload = new Payload();
+        payload.put(PayloadKeys.PIDS.name(), pids);
         application.getInfoModule().getSuccessor()
-                .ifPresent(successor -> application.request(successor.getAddress(), ElectionHandler.class, payload))
+                .ifPresent(successor -> application.request(successor.getAddress(), CoordinatorHandler.class, payload)
+                        .onTimeout(() -> beginCoordinatorCycle(pids)));
     }
 
     private boolean isRingComplete(LinkedList<Integer> pids) {

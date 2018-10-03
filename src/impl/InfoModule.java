@@ -59,6 +59,13 @@ public class InfoModule {
         return successor;
     }
 
+    public Optional<Address> getExternalAddress(int pid) {
+        return aliveAddresses.stream()
+                .filter(aliveAddresses -> aliveAddresses.getPid() == pid)
+                .findFirst()
+                .map(ExternalService::getAddress);
+    }
+
     private Optional<ExternalService> findSuccessor() {
         if (aliveAddresses.isEmpty()) {
             return Optional.empty();
