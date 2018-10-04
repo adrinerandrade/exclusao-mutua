@@ -9,11 +9,13 @@ import java.util.*;
 public class InfoModule {
 
     private final ApplicationService service;
+    private final int port;
     private int pid;
     private final TreeSet<ExternalService> aliveAddresses = new TreeSet<>();
 
-    public InfoModule(ApplicationService service) {
+    public InfoModule(ApplicationService service, int port) {
         this.service = service;
+        this.port = port;
     }
 
     public void loadAllServicesInfo() {

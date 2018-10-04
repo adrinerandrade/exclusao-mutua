@@ -10,7 +10,7 @@ public class Runner {
         ApplicationService applicationService = new ApplicationService(3050);
 
         Scanner read = new Scanner(System.in);
-        while(!"quit".equals(read.nextLine()))
+        while(!"quit".equals(read.nextLine()));
 
         applicationService.stop();
     }

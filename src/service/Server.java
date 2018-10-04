@@ -35,6 +35,7 @@ class Server {
 
     void kill() {
         runner.interrupt();
+        System.out.println("Service stopped!");
     }
 
     void onMessage(Consumer<Message> consumer) {

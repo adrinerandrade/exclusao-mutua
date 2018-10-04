@@ -17,7 +17,7 @@ public class ApplicationService implements ServiceScope {
 
     public ApplicationService(int port) {
         this.service = new Service(this, port);
-        this.infoModule = new InfoModule(this);
+        this.infoModule = new InfoModule(this, port);
         this.coordinatorModule = new CoordinatorModule(this);
         this.init();
     }
