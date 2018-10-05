@@ -14,6 +14,7 @@ public class ApplicationService implements ServiceScope {
     private final Service service;
     private final InfoModule infoModule;
     private final CoordinatorModule coordinatorModule;
+    private final ResourceModule resourceModule;
 
     public ApplicationService(int port) {
     	ServerNameResponse serverNameResponse = new ServerName().notifyCreation(port);
@@ -21,6 +22,7 @@ public class ApplicationService implements ServiceScope {
         this.service = new Service(this, port);
         this.infoModule = new InfoModule(this);
         this.coordinatorModule = new CoordinatorModule(this);
+        this.resourceModule = new ResourceModule(this);
         this.init(serverNameResponse);
     }
 
@@ -34,6 +36,10 @@ public class ApplicationService implements ServiceScope {
 
     public CoordinatorModule getCoordinatorModule() {
         return coordinatorModule;
+    }
+    
+    public ResourceModule getResourceModule() {
+    	return resourceModule;
     }
 
     public Request request(Address address, Class<? extends ActionHandler> handler, Payload payload) {
@@ -55,7 +61,8 @@ public class ApplicationService implements ServiceScope {
                 new CoordinatorHandler(this),
                 new RequestResourceHandler(this),
                 new ElectionHandler(this),
-                new GetInfoRequestHandler(this)
+                new GetInfoRequestHandler(this),
+                new RequestResourceHandler(this)
         );
     }
 
