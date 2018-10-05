@@ -9,17 +9,14 @@ import java.util.*;
 public class InfoModule {
 
     private final ApplicationService service;
-    private final int port;
     private int pid;
     private final TreeSet<ExternalService> aliveAddresses = new TreeSet<>();
 
-    public InfoModule(ApplicationService service, int port) {
+    public InfoModule(ApplicationService service) {
         this.service = service;
-        this.port = port;
     }
 
-    public void loadAllServicesInfo() {
-        ServerNameResponse serverNameResponse = new ServerName().notifyCreation();
+    public void loadAllServicesInfo(ServerNameResponse serverNameResponse) {
         this.pid = serverNameResponse.getPid();
         List<Address> allServices = serverNameResponse.getAllServices();
         if (allServices.isEmpty()) {

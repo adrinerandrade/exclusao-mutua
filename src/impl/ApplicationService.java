@@ -16,14 +16,16 @@ public class ApplicationService implements ServiceScope {
     private final CoordinatorModule coordinatorModule;
 
     public ApplicationService(int port) {
+    	ServerNameResponse serverNameResponse = new ServerName().notifyCreation(port);
+    	
         this.service = new Service(this, port);
-        this.infoModule = new InfoModule(this, port);
+        this.infoModule = new InfoModule(this);
         this.coordinatorModule = new CoordinatorModule(this);
-        this.init();
+        this.init(serverNameResponse);
     }
 
-    public void init() {
-        this.infoModule.loadAllServicesInfo();
+    public void init(ServerNameResponse serverNameResponse) {
+        this.infoModule.loadAllServicesInfo(serverNameResponse);
     }
 
     public InfoModule getInfoModule() {
