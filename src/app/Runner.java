@@ -2,19 +2,22 @@ package app;
 
 import impl.ApplicationService;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Runner {
 
     public static void main(String[] args) {
-        ApplicationService applicationService = new ApplicationService(3055);
-        ApplicationService applicationService2 = new ApplicationService(3056);
-        
+        List<ApplicationService> services = Arrays.asList(
+                new ApplicationService(3056),
+                new ApplicationService(3055)
+        );
+
         Scanner read = new Scanner(System.in);
         while(!"quit".equals(read.nextLine()));
 
-        applicationService.stop();
-        applicationService2.stop();
+        services.forEach(ApplicationService::stop);
     }
 
 }

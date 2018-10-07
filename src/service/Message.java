@@ -1,10 +1,11 @@
 package service;
 
+import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 
-final class Message {
+final class Message implements Serializable {
 
     private final int id;
     private Map<MessageHeader, Object> headers = new EnumMap<>(MessageHeader.class);

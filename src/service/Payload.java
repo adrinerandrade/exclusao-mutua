@@ -1,9 +1,10 @@
 package service;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Payload {
+public class Payload implements Serializable {
 
     private Map<String, Object> data = new HashMap<>();
 

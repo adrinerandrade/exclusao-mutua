@@ -12,7 +12,6 @@ import com.google.gson.reflect.TypeToken;
 
 import nameserver.Client;
 import service.Address;
-import service.ServerNameConnection;
 
 public class ServerName {
 	
