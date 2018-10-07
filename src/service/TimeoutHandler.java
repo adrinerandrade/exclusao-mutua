@@ -15,7 +15,7 @@ class TimeoutHandler {
         int messageId = message.getId();
         timeouts.put(messageId, timeout);
         timeout.onTimeout(() -> {
-            System.err.print(String.format("\nMessage not answered: %s", message));
+            System.err.println(String.format("\nMessage not answered: %s", message));
             timeouts.remove(messageId);
         });
         return timeout;

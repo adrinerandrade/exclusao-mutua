@@ -35,10 +35,12 @@ public class ResourceModule {
 	}
 
 	public void consumeResource() {
+		System.out.println(String.format("Processo de pid %s consumindo recurso.", service.getInfoModule().getPid()));
 		new Timer().schedule(new TimerTask() {
 
 			@Override
 			public void run() {
+				System.out.println(String.format("Processo de pid %s liberou o recurso.", service.getInfoModule().getPid()));
 				if (!queue.isEmpty()) {
 					service.getCoordinatorModule().request(ResourceReleasedHandler.class, new Payload());
 				}

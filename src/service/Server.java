@@ -46,7 +46,7 @@ class Server {
         }
         runner.interrupt();
         receiveListeners.clear();
-        System.out.println("Service stopped!");
+        System.out.println(String.format("Service on port %d stopped", this.port));
     }
 
     void onMessage(Consumer<Message> consumer) {

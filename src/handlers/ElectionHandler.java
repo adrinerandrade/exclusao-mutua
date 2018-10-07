@@ -24,8 +24,11 @@ public class ElectionHandler implements ActionHandler {
     public CompletableFuture<Payload> onRequest(Address sourceAddress, Payload payload) {
         LinkedList<Integer> pids = payload.get(PayloadKeys.PIDS.name());
         if (!isRingComplete(pids)) {
-            pids.add(application.getInfoModule().getPid());
-            continueElection(payload);
+            if (!application.getCoordinatorModule().isOnElection()) {
+                application.getCoordinatorModule().setOnElection(true);
+                pids.add(application.getInfoModule().getPid());
+                continueElection(payload);
+            }
         } else {
             beginCoordinatorCycle(pids);
         }

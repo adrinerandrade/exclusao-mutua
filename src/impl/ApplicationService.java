@@ -41,10 +41,7 @@ public class ApplicationService implements ServiceScope {
 
     public Request request(Address address, Class<? extends ActionHandler> handler, Payload payload) {
         Request request = this.service.request(address, handler, payload);
-        request.onTimeout(() -> {
-            System.err.println(String.format("Serviço no endereço '%s' não respondeu a tempo", address));
-            infoModule.remove(address);
-        });
+        request.onTimeout(() -> infoModule.remove(address));
         return request;
     }
 

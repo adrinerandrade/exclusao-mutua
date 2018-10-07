@@ -8,8 +8,8 @@ import java.util.*;
 
 public class InfoModule {
 
-    private final ApplicationService service;
     private int pid;
+    private final ApplicationService service;
     private final TreeSet<ExternalService> aliveAddresses = new TreeSet<>();
 
     public InfoModule(ApplicationService service) {
@@ -44,6 +44,7 @@ public class InfoModule {
 
     public void newService(ExternalService externalService) {
         aliveAddresses.add(externalService);
+        System.out.println(String.format("processo %s: %s", pid, aliveAddresses));
     }
 
     public void remove(Address address) {

@@ -14,7 +14,7 @@ public class Runner {
 
         List<Timer> timers = Arrays.asList(
                 schedule(() -> newService(port++), 0, 40000),
-                schedule(() -> getAnyNonCoordinatorService().ifPresent(service -> service.getResourceModule().requestResource()), 0, 40000),
+                schedule(() -> getAnyNonCoordinatorService().ifPresent(service -> service.getResourceModule().requestResource()), 0, 10000),
                 schedule(Runner::killCoordinator, 60000, 60000));
 
         while (!"quit".equals(read.nextLine())) ;
@@ -34,11 +34,12 @@ public class Runner {
     }
 
     private static void killCoordinator() {
-        services.stream()
+        ApplicationService coordinator = services.stream()
                 .filter(applicationService -> applicationService.getCoordinatorModule().isCoordinator())
                 .findAny()
-                .orElseThrow(() -> new RuntimeException("Nenhum coordenador internada."))
-                .stop();
+                .orElseThrow(() -> new RuntimeException("Nenhum coordenador internada."));
+        services.remove(coordinator);
+        coordinator.stop();
     }
 
     private static Timer schedule(Runnable runnable, long delay, long period) {

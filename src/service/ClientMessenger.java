@@ -24,7 +24,9 @@ class ClientMessenger {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(escrita);
             objectOutputStream.writeObject(message);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            if (!"Connection refused: connect".equalsIgnoreCase(e.getMessage())) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
