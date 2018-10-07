@@ -2,9 +2,10 @@ package impl;
 
 import service.Address;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ServerNameResponse {
+public class ServerNameResponse implements Serializable {
 
     private final List<Address> allServices;
     private final int pid;

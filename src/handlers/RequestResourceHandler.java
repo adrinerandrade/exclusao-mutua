@@ -1,11 +1,8 @@
 package handlers;
 
 import impl.ApplicationService;
-import impl.ResourceModule;
-import service.ActionHandler;
-import service.Address;
-import service.Payload;
-import service.RequestHandler;
+import impl.PayloadKeys;
+import service.*;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -20,9 +17,10 @@ public class RequestResourceHandler implements ActionHandler {
 
     @Override
     public CompletableFuture<Payload> onRequest(Address sourceAddress, Payload payload) {
-    	ResourceModule resourceModule = application.getResourceModule();
-		resourceModule.requestResource(sourceAddress);
-        return null;
+        ResourceStatus resourceStatus = application.getResourceModule().resourceRequested(sourceAddress);
+        Payload response = new Payload();
+        response.put(PayloadKeys.RESOURCE_STATUS.name(), resourceStatus);
+        return CompletableFuture.completedFuture(response);
     }
 
 }

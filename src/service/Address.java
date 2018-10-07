@@ -1,8 +1,9 @@
 package service;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public final class Address {
+public final class Address implements Serializable {
 
     private String host;
     private int port;

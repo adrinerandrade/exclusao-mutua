@@ -1,9 +1,6 @@
 package impl;
 
-import handlers.RequestResourceHandler;
-import handlers.CoordinatorHandler;
-import handlers.ElectionHandler;
-import handlers.GetInfoRequestHandler;
+import handlers.*;
 import service.*;
 
 import java.util.Arrays;
@@ -62,7 +59,9 @@ public class ApplicationService implements ServiceScope {
                 new RequestResourceHandler(this),
                 new ElectionHandler(this),
                 new GetInfoRequestHandler(this),
-                new RequestResourceHandler(this)
+                new RequestResourceHandler(this),
+                new ResourceReleasedHandler(this),
+                new NotifyResourceAvailableHandler(this)
         );
     }
 

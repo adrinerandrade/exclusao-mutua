@@ -1,11 +1,13 @@
 package impl;
 
-import handlers.CoordinatorHandler;
+import service.ActionHandler;
 import service.Address;
 import service.Payload;
+import service.Request;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 public class CoordinatorModule {
 
@@ -25,17 +27,12 @@ public class CoordinatorModule {
     }
 
     public boolean isCoordinator() {
-        return coordinatorAddress != null;
+        return coordinatorAddress == null;
     }
 
     public void makeCoordinator() {
         this.coordinatorAddress = null;
         System.out.println("Serviço atribuido como Coordenador.");
-    }
-
-    public void newCoordinator(Address address) {
-        this.coordinatorAddress = address;
-        System.out.println(String.format("Novo coordenador: %s.", address));
     }
 
     public void updateCoordinator(List<Integer> pids) {
@@ -51,6 +48,10 @@ public class CoordinatorModule {
         }
         this.coordinatorAddress = service.getInfoModule().getExternalAddress(maxPid)
                 .orElseThrow(() -> new IllegalArgumentException("Never, never, never should happen!"));
+    }
+
+    public Request request(Class<? extends ActionHandler> handler, Payload payload) {
+        return service.request(coordinatorAddress, handler, payload);
     }
 
 }

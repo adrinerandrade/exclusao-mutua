@@ -4,6 +4,7 @@ public enum PayloadKeys {
 
     PID,
     IS_COORDINATOR,
-    PIDS
+    PIDS,
+    RESOURCE_STATUS
 
 }
