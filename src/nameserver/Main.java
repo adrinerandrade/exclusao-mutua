@@ -9,6 +9,10 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+/**
+ * @author adriner.andrade
+ * @author luan.purin
+ */
 public class Main {
 
     private static int pid;

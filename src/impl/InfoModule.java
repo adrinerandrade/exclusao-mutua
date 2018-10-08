@@ -48,7 +48,10 @@ public class InfoModule {
     }
 
     public void remove(Address address) {
-        aliveAddresses.remove(new ExternalService(address, 0));
+        aliveAddresses.stream()
+                .filter(e -> e.getAddress().equals(address))
+                .findAny()
+                .ifPresent(e -> aliveAddresses.remove(e));
     }
 
     public Optional<ExternalService> getSuccessor() {

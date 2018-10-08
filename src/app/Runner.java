@@ -4,6 +4,10 @@ import impl.ApplicationService;
 
 import java.util.*;
 
+/**
+ * @author adriner.andrade
+ * @author luan.purin
+ */
 public class Runner {
 
     private static List<ApplicationService> services = new ArrayList<>();

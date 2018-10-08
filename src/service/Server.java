@@ -26,7 +26,7 @@ class Server {
                     try {
                         receive(this.server.accept());
                     } catch (IOException e) {
-                        if (!"socket closed".equals(e.getMessage())) {
+                        if (!("Socket is closed".equals(e.getMessage()) || "socket closed".equals(e.getMessage()))) {
                             throw new RuntimeException(e);
                         }
                     }
